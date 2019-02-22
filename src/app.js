@@ -91,4 +91,17 @@ app.get('/card/:id', (req, res) => {
   res.json(card);
 });
 
+app.get('/list/:id', (req, res) => {
+  const { id } = req.params;
+  const list = lists.find(li => li.id == id);
+
+  // make sure we found a list
+  if (!list) {
+    logger.error(`List with id ${id} not found.`);
+    return res.status(404).send('List Not Found');
+  }
+
+  res.json(list);
+});
+
 module.exports = app;
